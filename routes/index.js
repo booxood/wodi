@@ -4,7 +4,7 @@ var config = require('../config');
 var fs = require('fs');
 
 function writeLog(prefix, log){
-	fs.appendFile(config.logPath, '\n['+prefix+']'+log, 
+	fs.appendFile(config.logPath, '['+prefix+']'+log, 
 		function(err){
 		if(err)
 			return res.end('write file error...');
