@@ -19,20 +19,21 @@ exports.checkToken = function(req, res, next){
 	var echostr = req.query['echostr'];
 	writeLog('checkToken',[signature,timestamp,nonce,echostr].join(';'));
 	var keys = [];
-	keys.push(signature);
+	keys.push(nonce);
 	keys.push(timestamp);
 	keys.push(config.token);
 	keys.sort();
-
+	console.log(keys);
 	var sha1 = crypto.createHash('sha1');
 	// for(var key in keys){
 	// 	sha1.update(key);
 	// }
 	sha1.update(keys.join(''), 'utf8');
-
-	if(nonce == sha1.digest('hex')){
+	var result = sha1.digest('hex')
+	console.log(result);
+	if(signature == result){
 		if(req.method == 'GET')
-			return echostr;
+			return res.end(echostr);
 		next();
 	}else{
 		return res.end('403...');
