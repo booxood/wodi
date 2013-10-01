@@ -4,7 +4,7 @@ var util = require('../util');
 
 var writeLog = util.writeLog;
 var logPath = config.logPath;
-
+var wxTextRes = util.wxTextRes;
 
 exports.checkToken = function(req, res, next){
 
@@ -35,14 +35,19 @@ exports.checkToken = function(req, res, next){
 
 exports.get = function(req, res){
 	writeLog(logPath, 'get', 'req.url:'+req.url);
-	res.render('index', { title: 'Express' });
+	res.send('where are you from');
 };
 
 exports.post = function(req, res){
 	writeLog(logPath, 'post', 'req.url:'+req.url);
-	writeLog(logPath, 'post', 'req.body:'+req.body);
-	for(var i in req.body){
-		console.log(i+'------'+req.body[i]);
+
+	for(var i in req.body.xml){
+		console.log(i+'------'+req.body.xml[i]);
 	}
-	res.send('ok', 200);
+	var msg = req.body.xml;
+	var str = wxTextRes(msg.FromUserName, 
+				msg.ToUserName,
+				'response success!');
+	console.log('-------reponse:' + str);
+	res.send(str);
 };

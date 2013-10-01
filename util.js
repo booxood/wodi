@@ -1,5 +1,6 @@
 var fs = require('fs');
 var xml2js = require('xml2js');
+var xmlbuilder = require('xmlbuilder');
 
 var accessLogFile = fs.createWriteStream('access.log', {
     flags: 'a'
@@ -34,13 +35,13 @@ var parseXmlBody = function(req, res, next){
 	});
 	req.on('end', function(){
 		console.log('---POST---BODY:' + buf);
-		var parsestring = xml2js.parsestring;
-		parsestring(buf, function(err, json){
+		var parser = xml2js.Parser();
+		parser.parseString(buf, function(err, json){
 			if(err){
 				err.status = 400;
 				next(err);
 			}else{
-				req.body = json;
+				req.body['xml'] = json.xml;
 				next();
 			}
 		});
@@ -48,13 +49,34 @@ var parseXmlBody = function(req, res, next){
 };	
 
 var writeLog = function(logPath, prefix, log){
-	fs.appendFile(logPath, '\n['+prefix+']'+log, 
+	fs.appendFile(logPath, '\n['+ new Date() +']['+prefix+']'+log, 
 		function(err){
 		if(err)
 			return res.end('write file error...');
 	});	
 }
 
+var wxTextRes = function(to, from, content){
+    var xml = xmlbuilder.create('xml')
+        .ele('ToUserName')
+        .dat(to)
+        .up()
+        .ele('FromUserName')
+        .dat(from)
+        .up()
+        .ele('CreateTime')
+        .txt(new Date().getTime())
+        .up()
+        .ele('MsgType')
+        .dat('text')
+        .up()
+        .ele('Content')
+        .dat(content)
+        .up()
+        .end({ 'pretty': true, 'indent': '  ', 'newline': '\n' });
+    return xml;
+}
 exports.accessLogFile = accessLogFile;
 exports.parseXmlBody = parseXmlBody;
 exports.writeLog = writeLog;
+exports.wxTextRes = wxTextRes;

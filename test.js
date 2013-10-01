@@ -1,5 +1,7 @@
 var xml2js = require('xml2js');
-var parsestring = xml2js.parsestring;
+var parser = xml2js.Parser();
+
+var xmlbuilder = require('xmlbuilder');
 
 var xml = '<xml>\
  <ToUserName><![CDATA[toUser]]></ToUserName>\
@@ -10,10 +12,22 @@ var xml = '<xml>\
  <MsgId>1234567890123456</MsgId>\
  </xml>';
 
- parsestring(xml, function(err, json){
+ parser.parseString(xml, function(err, json){
  	if(err){
  		console.log('err:'+err);
  	}else{
- 		console.log('json:'+json);
+ 		for(var j in json.xml){
+ 			console.log(j+':'+json.xml[j]);
+ 		}
+ 		
  	}
  });
+
+ var str = xmlbuilder.create('xml')
+ 			.ele('ToUserName')
+ 			.dat('user')
+ 			.up()
+ 			.ele('FromUserName')
+ 			.dat('from')
+ 			.up();
+ console.log('xml str:' + str);
