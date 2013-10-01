@@ -30,8 +30,7 @@ var parseXmlBody = function(req, res, next){
 	var buf = '';
 	req.setEncoding('utf8');
 	req.on('data', function(chunk){
-		console.log('------- data ------');
-		data += chunk;
+		buf += chunk;
 	});
 	req.on('end', function(){
 		console.log('---POST---BODY:' + buf);
