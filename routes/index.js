@@ -42,7 +42,7 @@ exports.post = function(req, res){
 	writeLog(logPath, 'post', 'req.url:'+req.url);
 	writeLog(logPath, 'post', 'req.body:'+req.body);
 	for(var i in req.body){
-		console.log('---req.body:' + req.body[i].toString());		
+		console.log(i+'------'+req.body[i]);
 	}
 	res.send('ok', 200);
 };

@@ -11,8 +11,11 @@ function mime(req){
 };
 
 var parseXmlBody = function(req, res, next){
-	if(req._body)
-		return next();
+	console.log('--------parseXmlBody------' + req._body);
+	console.log('--------parseXmlBody------' + mime(req));
+
+	// if(req._body)
+	// 	return next();
 
 	if(req.method == 'GET' ||
 		req.method == 'HEAD')
@@ -22,12 +25,12 @@ var parseXmlBody = function(req, res, next){
 
 	if(mime(req) != 'text/xml')
 		return next();
-
 	// req._body = true;
 
 	var buf = '';
 	req.setEncoding('utf8');
 	req.on('data', function(chunk){
+		console.log('------- data ------');
 		data += chunk;
 	});
 	req.on('end', function(){
