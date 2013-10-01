@@ -8,7 +8,8 @@ var express = require('express')
   , path = require('path')
   , routes = require('./routes')
   , log = require('./routes/log')
-  , config = require('./config');
+  , config = require('./config')
+  , util = require('./util');
 
 var app = express();
 
@@ -16,7 +17,10 @@ var app = express();
 app.set('port', process.env.PORT || config.PORT);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-// app.use(express.favicon());
+app.use(express.favicon());
+app.use(express.logger({
+	stream: util.accessLogFile
+}));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());

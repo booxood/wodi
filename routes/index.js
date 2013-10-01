@@ -42,12 +42,11 @@ exports.checkToken = function(req, res, next){
 
 
 exports.get = function(req, res){
+	writeLog('get',req.urlpath);
 	res.render('index', { title: 'Express' });
 };
 
 exports.post = function(req, res){
-	console.log('-----post------');
-	console.log(req.body.signature);
-	console.log(req.body.echostr);
-	res.render('index', { title: 'Express' });	
+	console.log(req.body);
+	res.end('ok', 200);	
 };
