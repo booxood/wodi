@@ -29,5 +29,8 @@ var xml = '<xml>\
  			.up()
  			.ele('FromUserName')
  			.dat('from')
+ 			.up()
+ 			.ele('Content')
+ 			.txt('hello')
  			.up();
  console.log('xml str:' + str);

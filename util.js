@@ -12,11 +12,6 @@ function mime(req){
 };
 
 var parseXmlBody = function(req, res, next){
-	console.log('--------parseXmlBody------' + req._body);
-	console.log('--------parseXmlBody------' + mime(req));
-
-	// if(req._body)
-	// 	return next();
 
 	if(req.method == 'GET' ||
 		req.method == 'HEAD')
@@ -26,15 +21,15 @@ var parseXmlBody = function(req, res, next){
 
 	if(mime(req) != 'text/xml')
 		return next();
-	// req._body = true;
 
 	var buf = '';
 	req.setEncoding('utf8');
 	req.on('data', function(chunk){
+		// console.log('------chunk:' + chunk);
 		buf += chunk;
 	});
 	req.on('end', function(){
-		console.log('---POST---BODY:' + buf);
+		console.log('------BODY:' + buf);
 		var parser = xml2js.Parser();
 		parser.parseString(buf, function(err, json){
 			if(err){
@@ -54,7 +49,7 @@ var writeLog = function(logPath, prefix, log){
 		if(err)
 			return res.end('write file error...');
 	});	
-}
+};
 
 var wxTextRes = function(to, from, content){
     var xml = xmlbuilder.create('xml')
@@ -75,7 +70,7 @@ var wxTextRes = function(to, from, content){
         .up()
         .end({ 'pretty': true, 'indent': '  ', 'newline': '\n' });
     return xml;
-}
+};
 exports.accessLogFile = accessLogFile;
 exports.parseXmlBody = parseXmlBody;
 exports.writeLog = writeLog;

@@ -12,7 +12,7 @@ exports.checkToken = function(req, res, next){
 	var timestamp = req.query['timestamp'];
 	var nonce = req.query['nonce'];
 	var echostr = req.query['echostr'];
-	writeLog(logPath, 'checkToken',[signature,timestamp,nonce,echostr].join(';'));
+	// writeLog(logPath, 'checkToken',[signature,timestamp,nonce,echostr].join(';'));
 	var keys = [];
 	keys.push(nonce);
 	keys.push(timestamp);
@@ -34,20 +34,19 @@ exports.checkToken = function(req, res, next){
 
 
 exports.get = function(req, res){
-	writeLog(logPath, 'get', 'req.url:'+req.url);
+	// writeLog(logPath, 'get', 'req.url:'+req.url);
 	res.send('where are you from');
 };
 
 exports.post = function(req, res){
-	writeLog(logPath, 'post', 'req.url:'+req.url);
-
+	// writeLog(logPath, 'post', 'req.url:'+req.url);
 	for(var i in req.body.xml){
 		console.log(i+'------'+req.body.xml[i]);
 	}
 	var msg = req.body.xml;
 	var str = wxTextRes(msg.FromUserName, 
 				msg.ToUserName,
-				'收到你发过来的'+msg.Content);
-	console.log('-------reponse:' + str);
+				'收到你发过来的:'+msg.Content);
+	// console.log('-------reponse:' + str);
 	res.send(str);
 };
