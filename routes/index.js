@@ -47,7 +47,7 @@ exports.post = function(req, res){
 	var msg = req.body.xml;
 	var str = wxTextRes(msg.FromUserName, 
 				msg.ToUserName,
-				'response success!');
+				'收到你发过来的'+msg.Content);
 	console.log('-------reponse:' + str);
 	res.send(str);
 };
