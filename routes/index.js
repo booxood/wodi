@@ -7,7 +7,7 @@ var writeLog = util.writeLog;
 var wxTextRes = util.wxTextRes;
 var isNum = util.isNum;
 var randomNum = util.randomNum;
-
+var trim = util.trim;
 
 var rooms = {};
 
@@ -54,6 +54,8 @@ exports.post = function(req, res){
     }
     var msg = req.body.xml;
     var resStr = '';
+
+    msg.Content = trim(msg.Content.toString());
 
     if(msg.Content.indexOf('wodi') == 0){
 

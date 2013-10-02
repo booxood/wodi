@@ -89,13 +89,19 @@ function randomNum(len){
         n += b*Math.floor(1+Math.random()*9);
     }
     return n;
-}
+};
+
+function trim(str){
+    return (str||'').replace(/^\s+|\s+$/g,'');
+};
+
 exports.accessLogFile = accessLogFile;
 exports.parseXmlBody = parseXmlBody;
 exports.writeLog = writeLog;
 exports.wxTextRes = wxTextRes;
 exports.isNum = isNum;
 exports.randomNum = randomNum;
+exports.trim = trim;
 
 // console.log(randomNum(4));
 // console.log(isNum('898aaa999'));
