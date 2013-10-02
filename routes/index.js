@@ -11,10 +11,10 @@ var randomNum = util.randomNum;
 
 var rooms = {};
 
-var WODI_RULE_0 = '
-发送:
-wodi 玩家数 卧底人数 白板人数
-到微信,例如:
+var WODI_RULE_0 = ' \
+发送:\n     \
+wodi 玩家数 卧底人数 白板人数\n  \
+到微信,例如:\n     \
 wodi 8 2 0';
 
 exports.checkToken = function(req, res, next){
@@ -54,13 +54,15 @@ exports.post = function(req, res){
     }
     var msg = req.body.xml;
     var resStr = '';
-    if(msg.Content == 'wodi'){
-        resStr = wxTextRes(msg.FromUserName, 
-            msg.ToUserName,
-            WODI_RULE_0);
-    }else if(msg.Content.indexOf('wodi') == 0){
+
+    if(msg.Content.indexOf('wodi') == 0){
+
         var cmd = msg.Content.split(' ');
-        if(cmd.length == 4){
+        console.log('-------wodi------cmd:'+cmd);
+        if(cmd.length == 1){
+            resStr = WODI_RULE_0;
+        }else if(cmd.length == 4){
+            console.log('-----------4-----------');
             if(isNum(cmd[1]) && isNum(cmd[2]) && isNum(cmd[3])){
                 var id = randomNum(4);
                 var room = new Room(id, msg.FromUserName);
@@ -72,18 +74,16 @@ exports.post = function(req, res){
                 resStr = '房间创建成功，ID:'+id+';让小伙伴们发送：wodi 房间ID 昵称;例如：\n'+
                         'wodi '+id+' 小白';
             }else{
-                resStr = wxTextRes(msg.FromUserName, 
-                                msg.ToUserName,
-                                '你想干嘛？玩 谁是卧底 吗？是的话，请按步骤一步一步来。\n'+WODI_RULE_0);
+                resStr = '玩家数 卧底人数 白板人数 必须是数字！';
             }
+        }else{
+            resStr = '你想干嘛？玩 谁是卧底 吗？让我们开始吧。\n'+WODI_RULE_0;
         }
 
     }else{
-        resStr = wxTextRes(msg.FromUserName, 
-            msg.ToUserName,
-            '收到你发过来的:'+msg.Content);
+        resStr = '收到你发过来的:'+msg.Content;
     }
 
     // console.log('-------reponse:' + resStr);
-    res.send(resStr);
+    res.send(wxTextRes(msg.FromUserName, msg.ToUserName, resStr));
 };

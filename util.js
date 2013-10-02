@@ -98,3 +98,5 @@ exports.isNum = isNum;
 exports.randomNum = randomNum;
 
 // console.log(randomNum(4));
+// console.log(isNum('898aaa999'));
+// console.log(isNum('0099890'));
