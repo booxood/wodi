@@ -11,7 +11,7 @@ var Room = function(id, host){
 }
 
 Room.prototype.addPlayer = function(player){
-	player.id = this.player.length + 1;
+	player.id = this.players.length + 1;
 	this.players.push(player);
 	this.update = new Date().getTime();
 

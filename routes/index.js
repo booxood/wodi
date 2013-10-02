@@ -62,13 +62,13 @@ exports.get = function(req, res){
 };
 
 exports.post = function(req, res){
-    console.log('------------------------------------------------------');
+    console.log('-----------------  body xml    --------------------');
     for(var i in req.body.xml){
         console.log(i+'------'+req.body.xml[i]);
     }
-    console.log('------------------------------------------------------');
+    console.log('-----------------  rooms   --------------------');
     for(var i in rooms){
-        console.log(i+'------'+rooms[i]);
+        console.log(i+'------'+rooms[i])+'-----'+rooms[i].players.length);
     }
     console.log('------------------------------------------------------');
     console.log('------------------------------------------------------');
@@ -96,7 +96,7 @@ exports.post = function(req, res){
                         var player = new Player(msg.FromUserName, cmd[2]);
                         room.addPlayer(player);
                     }else{
-                        resStr = '房间ID 必须是数字！';
+                        resStr = '房间ID 不对！';
                     }
                 }else if(cmd[0] == 'wodiexpose'){
                     var room = null;
