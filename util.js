@@ -29,7 +29,7 @@ var parseXmlBody = function(req, res, next){
         buf += chunk;
     });
     req.on('end', function(){
-        console.log('------BODY:' + buf);
+        // console.log('------BODY:' + buf);
         var parser = xml2js.Parser();
         parser.parseString(buf, function(err, json){
             if(err){
