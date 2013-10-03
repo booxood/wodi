@@ -157,7 +157,7 @@ var s = setInterval(function(){
 }, 1000);
 
 var cleanRoom = function(rooms){
-    console.log('====cleanRoom time:'+newDate.getTime());
+    console.log('====cleanRoom time:'+new Date.getTime());
     for(var i in rooms){
         if(newDate().getTime() - rooms[i].update > 1*60*1000)
             rooms.splice(i, 1);
