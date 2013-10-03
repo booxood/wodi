@@ -158,8 +158,8 @@ var s = setInterval(function(){
 
 var cleanRoom = function(rooms){
     for(var i in rooms){
-        console.log('========================================');
-        console.log(new Date().getTime());
+        // console.log('========================================');
+        // console.log(new Date().getTime());
         console.log(rooms[i].update);
         if(new Date().getTime() - rooms[i].update > 1*60*1000)
         {
