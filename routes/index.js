@@ -151,3 +151,14 @@ exports.post = function(req, res){
     console.log('-------reponse:---------\n' + resStr);
     res.send(wxTextRes(msg.FromUserName, msg.ToUserName, resStr));
 };
+
+var s = setInterval(function(){
+    cleanRoom();
+}, 1000);
+
+var cleanRoom = function(rooms){
+    for(var i in rooms){
+        if(newDate().getTime() - rooms[i].update > 1*60*1000)
+            rooms.splice(i, 1);
+    }
+}
