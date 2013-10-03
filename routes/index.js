@@ -153,12 +153,12 @@ exports.post = function(req, res){
 };
 
 var s = setInterval(function(){
-    cleanRoom();
+    cleanRoom(rooms);
 }, 1000);
 
 var cleanRoom = function(rooms){
     for(var i in rooms){
-        if(newDate().getTime() - rooms[i].update > 1*60*1000)
+        if(new Date().getTime() - rooms[i].update > 1*60*1000)
             console.log('====cleanRoom time:'+new Date().getTime());
             console.log('====cleanRoom :'+i);
             delete rooms[i];
