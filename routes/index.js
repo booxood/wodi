@@ -88,6 +88,7 @@ exports.post = function(req, res){
                 resStr = WODI_BEGIN;
                 break;
             case 2:
+                resStr = WODI_BEGIN;
                 break;
             case 3:
                 if(cmd[0] == 'wodiroom'){
@@ -95,6 +96,7 @@ exports.post = function(req, res){
                         var room = rooms[cmd[1]];
                         var player = new Player(msg.FromUserName, cmd[2]);
                         room.addPlayer(player);
+                        resStr = '加入房间 '+cmd[1]+' 成功';
                     }else{
                         resStr = '房间ID 不对！';
                     }
@@ -122,7 +124,6 @@ exports.post = function(req, res){
                     }else{
                         resStr = '你是房间的创建者吗？让ta来发这个命令吧';
                     }
-
                 }
                 break;
             case 4:
@@ -140,13 +141,13 @@ exports.post = function(req, res){
                 }
                 break;
             default:
-                resStr = '你想干嘛？玩 谁是卧底 吗？让我们开始吧。\n'+WODI_BEGIN;
+                resStr = '你想干嘛？玩 谁是卧底 吗？开始吧。\n'+WODI_BEGIN;
         }
 
     }else{
         resStr = '收到你发过来的:'+msg.Content;
     }
 
-    // console.log('-------reponse:' + resStr);
+    console.log('-------reponse:---------\n' + resStr);
     res.send(wxTextRes(msg.FromUserName, msg.ToUserName, resStr));
 };

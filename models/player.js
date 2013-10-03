@@ -3,11 +3,11 @@ var Player = function(wxid, name){
 	this.name = name;
 
 	this.id  = 0;
-	this.role = 0;
+	this.role = 0;//0:killed,1:plice,2:spy,3:null
 }
 
 Player.prototype.expose = function(){
-    
+    this.role = 0;
 }
 
 module.exports = Player;
