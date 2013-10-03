@@ -158,7 +158,7 @@ var s = setInterval(function(){
 
 var cleanRoom = function(rooms){
     for(var i in rooms){
-        if(new Date().getTime() - rooms[i].update > 1*60*1000)
+        if(new Date().getTime() - rooms[i].update > 5*60*1000)
             console.log('====cleanRoom time:'+new Date().getTime());
             console.log('====cleanRoom :'+i);
             delete rooms[i];
