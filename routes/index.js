@@ -68,7 +68,7 @@ exports.post = function(req, res){
     }
     console.log('-----------------  rooms   --------------------');
     for(var i in rooms){
-        console.log(i+'------'+rooms[i]+'-----'+rooms[i].players.length);
+        console.log(i+'------'+rooms[i].update+'-----'+rooms[i].players.length);
     }
     console.log('------------------------------------------------------');
     console.log('------------------------------------------------------');
@@ -157,6 +157,7 @@ var s = setInterval(function(){
 }, 1000);
 
 var cleanRoom = function(rooms){
+    console.log('====cleanRoom time:'+newDate.getTime());
     for(var i in rooms){
         if(newDate().getTime() - rooms[i].update > 1*60*1000)
             rooms.splice(i, 1);
