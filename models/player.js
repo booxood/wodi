@@ -7,6 +7,7 @@ var Player = function(wxid, name){
 }
 
 Player.prototype.expose = function(){
+    var str = '';
     this.role = 0;
 }
 

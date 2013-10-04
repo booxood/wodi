@@ -111,8 +111,11 @@ exports.post = function(req, res){
                     if(isNum(cmd[1]) && rooms[cmd[1]]){
                         var room = rooms[cmd[1]];
                         var player = new Player(msg.FromUserName, cmd[2]);
-                        room.addPlayer(player);
-                        resStr = '加入房间 '+cmd[1]+' 成功';
+                        if(room.addPlayer(player)){
+                            resStr = room.addPlayer(player);
+                        }else{
+                            resStr = '加入房间 '+cmd[1]+' 成功';
+                        }
                     }else{
                         resStr = '房间ID 不对！';
                     }
@@ -130,7 +133,7 @@ exports.post = function(req, res){
                                     player = room.players[p];
                             }
                             if(player){
-                                player.expose();
+                                room.expose(player);
                             }else{
                                 resStr = '小伙伴ID 不存在！';
                             }

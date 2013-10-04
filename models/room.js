@@ -11,10 +11,16 @@ var Room = function(id, host){
 }
 
 Room.prototype.addPlayer = function(player){
-	player.id = this.players.length + 1;
-	this.players.push(player);
-	this.update = new Date().getTime();
+	var str = '';
+	if(this.playerNum <= this.players.length){
+		str = '房间已经满了，小伙伴，你是被抛弃了，还是进错了？';
+	}else{
+		player.id = this.players.length+1;
+		this.players.push(player);
+		this.update = new Date().getTime();
+	}
 
+	return str;
 	// Event.emitor('add')
 }
 
@@ -34,7 +40,7 @@ Room.prototype.status = function(){
 	var str = '';
 	str = '编号  昵称';
 	for(var p in this.players){
-		str += p + '    ' + this.players[p].name + '\n';
+		str += this.players[p].id + '    ' + this.players[p].name + '\n';
 	}
 	str += '--------';
 	if(this.playerNum == this.players.length){
@@ -43,6 +49,10 @@ Room.prototype.status = function(){
 		str += '还有 '+(this.playerNum - this.players.length)+' 个小伙伴没进来！';
 	}
 	return str;
+}
+
+Room.prototype.expose = function(player){
+
 }
 
 module.exports = Room;
