@@ -68,7 +68,7 @@ exports.post = function(req, res){
     }
     console.log('-----------------  rooms   --------------------');
     for(var i in rooms){
-        console.log(i+'------'+rooms[i].update+'-----'+rooms[i].players.length);
+        console.log(i+'------'+rooms[i].host+'-----'+rooms[i].players.length);
     }
     console.log('------------------------------------------------------');
     console.log('------------------------------------------------------');
