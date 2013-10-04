@@ -135,7 +135,8 @@ exports.post = function(req, res){
                     room.nullNum = parseInt(cmd[3]);
 
                     if(room.valid()){
-                        return room.valid();
+                        resStr = room.valid();
+                        break;
                     }
 
                     rooms[id] = room;
