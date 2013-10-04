@@ -85,7 +85,21 @@ exports.post = function(req, res){
 
         switch(cmd.length){
             case 1:
-                resStr = WODI_BEGIN;
+                if(cmd[0] == 'wodi'){
+                    resStr = WODI_BEGIN;
+                }else if(cmd[0] == 'wodistatus'){
+                    var room = null;
+                    for(var r in rooms){
+                        if(rooms[r].host == msg.FromUserName)
+                            room = rooms[r];
+                    }
+                    if(room){
+                        resStr = room.status();
+                    }else{
+                        resStr = '你是房间的创建者吗？让ta来发这个命令吧';
+                    }
+                }
+                
                 break;
             case 2:
                 resStr = WODI_BEGIN;
@@ -138,9 +152,10 @@ exports.post = function(req, res){
                         resStr = room.valid();
                         break;
                     }
-
+                    var player = new Player(msg.FromUserName, '主持人');
+                    room.addPlayer(player);
                     rooms[id] = room;
-                    resStr = '房间创建成功，ID:'+id+';让小伙伴们发送：wodiroom 房间ID 昵称;例如：\n'+
+                    resStr = '房间创建成功，ID:'+id+';让小伙伴们发送：wodiroom 房间ID 昵称;\n例如：\n'+
                             'wodiroom '+id+' 小白';
                 }else{
                     resStr = '玩家数 卧底人数 白板人数 必须是数字！';

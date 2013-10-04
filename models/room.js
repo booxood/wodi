@@ -30,4 +30,13 @@ Room.prototype.valid = function(){
 	return '';
 }
 
+Room.prototype.status = function(){
+	var str = '';
+	str = '编号  昵称';
+	for(var p in this.players){
+		str = p + '    ' + this.players[p].name;
+	}
+	return str;
+}
+
 module.exports = Room;
