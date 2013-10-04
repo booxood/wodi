@@ -21,7 +21,7 @@ Room.prototype.addPlayer = function(player){
 Room.prototype.valid = function(){
 	if(this.playerNum <= 2){
 		return '玩家数 太少';
-	}else if(this.spyNum > 0 && this.nullNum >= 0){
+	}else if(this.spyNum <= 0 && this.nullNum < 0){
 		return '卧底数 和 白板数 太少';
 	}else if(this.playerNum <= this.spyNum + this.nullNum){
 		return '都是卧底和白板怎么玩？';
