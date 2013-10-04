@@ -78,6 +78,8 @@ exports.post = function(req, res){
     var resStr = '';
 
     msg.Content = trim(msg.Content.toString());
+    msg.FromUserName = trim(msg.FromUserName.toString());
+    msg.ToUserName = trim(msg.ToUserName.toString());
 
     if(msg.Content.indexOf('wodi') == 0){
 
