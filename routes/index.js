@@ -90,6 +90,7 @@ exports.post = function(req, res){
                 }else if(cmd[0] == 'wodistatus'){
                     var room = null;
                     for(var r in rooms){
+                        console.log('=========='+rooms[r].host+'======='+msg.FromUserName);
                         if(rooms[r].host == msg.FromUserName)
                             room = rooms[r];
                     }
