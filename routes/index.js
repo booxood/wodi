@@ -119,22 +119,7 @@ exports.post = function(req, res){
                 
                 break;
             case 2:
-                resStr = WODI_BEGIN;
-                break;
-            case 3:
-                if(cmd[0] == 'wodiroom'){
-                    if(isNum(cmd[1]) && rooms[cmd[1]]){
-                        var room = rooms[cmd[1]];
-                        var player = new Player(msg.FromUserName, cmd[2]);
-                        if(room.addPlayer(player)){
-                            resStr = room.addPlayer(player);
-                        }else{
-                            resStr = '加入房间 '+cmd[1]+' 成功';
-                        }
-                    }else{
-                        resStr = '房间ID 不对！';
-                    }
-                }else if(cmd[0] == 'wodiout'){
+                if(cmd[0] == 'wodiout'){
                     var room = null;
                     for(var r in rooms){
                         if(rooms[r].host == msg.FromUserName)
@@ -148,6 +133,24 @@ exports.post = function(req, res){
                         }
                     }else{
                         resStr = '你是房间的创建者吗？让ta来发这个命令吧';
+                    }
+                }else{
+                    resStr = WODI_BEGIN;
+                }
+                
+                break;
+            case 3:
+                if(cmd[0] == 'wodiroom'){
+                    if(isNum(cmd[1]) && rooms[cmd[1]]){
+                        var room = rooms[cmd[1]];
+                        var player = new Player(msg.FromUserName, cmd[2]);
+                        if(room.addPlayer(player)){
+                            resStr = room.addPlayer(player);
+                        }else{
+                            resStr = '加入房间 '+cmd[1]+' 成功';
+                        }
+                    }else{
+                        resStr = '房间ID 不对！';
                     }
                 }
                 break;

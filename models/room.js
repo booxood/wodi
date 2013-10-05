@@ -69,7 +69,7 @@ Room.prototype.out = function(id){
 	return str;
 }
 
-Room.result = function(){
+Room.prototype.result = function(){
 	var p,s,n = 0;
 	var str = '';
 	for(var i in this.players){
