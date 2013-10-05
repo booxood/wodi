@@ -87,6 +87,9 @@ exports.post = function(req, res){
 
         switch(cmd.length){
             case 1:
+
+
+
                 if(cmd[0] == 'wodi'){
                     resStr = WODI_BEGIN;
                 }else if(cmd[0] == 'wodistatus'){
@@ -101,8 +104,17 @@ exports.post = function(req, res){
                         resStr = '你是房间的创建者吗？让ta来发这个命令吧';
                     }
                 }else if(cmd[0] == 'wodiover'){
-                    resStr = room.over();
-                    delete rooms[room.id];
+                    var room = null;
+                    for(var r in rooms){
+                        if(rooms[r].host == msg.FromUserName)
+                            room = rooms[r];
+                    }
+                    if(room){
+                        resStr = room.over();
+                        delete rooms[room.id];
+                    }else{
+                        resStr = '你是房间的创建者吗？让ta来发这个命令吧';
+                    }
                 }
                 
                 break;
