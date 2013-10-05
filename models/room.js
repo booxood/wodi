@@ -9,7 +9,33 @@ var Room = function(id, host){
 	this.nullNum = 0;
 
 	this.players = [];
+	this.roles = [];
+	this.words = ['平民的密语','卧底的密语','万中无一的白板'];
 	this.update = new Date().getTime();
+}
+
+//+ Jonas Raoni Soares Silva
+//@ http://jsfromhell.com/array/shuffle [v1.0]
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
+
+Room.prototype.init = function(){
+	for(var i=0;i<this.spyNum;i++){
+		this.roles.push(2);
+	}
+	for(var i=0;i<this.nullNum;i++){
+		this.roles.push(3);
+	}
+	var p = this.playerNum - this.spyNum - this.nullNum;
+	for(var i=0;i<p;i++){
+		this.roles.push(1);
+	}
+
+	this.roles = shuffle(this.roles);
+
+	// this.words 
 }
 
 Room.prototype.addPlayer = function(player){
@@ -18,7 +44,9 @@ Room.prototype.addPlayer = function(player){
 		str = '房间已经满了，小伙伴，你是被抛弃了，还是进错了？';
 	}else{
 		player.id = this.players.length+1;
+		player.role = this.roles[this.players.length];
 		this.players.push(player);
+		str = '加入房间（'+ this.id +'）成功，你的密语是：' + this.words[player.role];
 		this.update = new Date().getTime();
 	}
 
