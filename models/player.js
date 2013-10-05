@@ -3,7 +3,7 @@ var Player = function(wxid, name){
 	this.name = name;
 
 	this.id  = 0;
-	this.role = 0;//1:plice,2:spy,3:null
+	this.role = 0;//0:plice,1:spy,2:null
     this.out = 0;
 }
 

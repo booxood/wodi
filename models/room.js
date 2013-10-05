@@ -23,14 +23,14 @@ function shuffle(o){ //v1.0
 
 Room.prototype.init = function(){
 	for(var i=0;i<this.spyNum;i++){
-		this.roles.push(2);
+		this.roles.push(1);
 	}
 	for(var i=0;i<this.nullNum;i++){
-		this.roles.push(3);
+		this.roles.push(2);
 	}
 	var p = this.playerNum - this.spyNum - this.nullNum;
 	for(var i=0;i<p;i++){
-		this.roles.push(1);
+		this.roles.push(0);
 	}
 
 	this.roles = shuffle(this.roles);

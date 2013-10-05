@@ -165,11 +165,13 @@ exports.post = function(req, res){
 
                     room.init();
 
-                    var player = new Player(msg.FromUserName, '主持人');
-                    room.addPlayer(player);
-                    rooms[id] = room;
                     resStr = '房间创建成功，ID:'+id+';让小伙伴们发送：wodiroom 房间ID 昵称;\n例如：\n'+
-                            'wodiroom '+id+' 小白';
+                            'wodiroom '+id+' 小白\n';
+
+                    var player = new Player(msg.FromUserName, '主持人');
+                    resStr += room.addPlayer(player);
+                    rooms[id] = room;
+                    
                 }else{
                     resStr = '玩家数 卧底人数 白板人数 必须是数字！';
                 }
