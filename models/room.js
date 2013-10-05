@@ -1,3 +1,5 @@
+var ROLE = ['平民','卧底','白板'];
+
 var Room = function(id, host){
 	this.id = id;
 	this.host = host;
@@ -32,27 +34,79 @@ Room.prototype.valid = function(){
 	}else if(this.playerNum <= this.spyNum + this.nullNum){
 		return '都是卧底和白板怎么玩？';
 	}
-
+	this.update = new Date().getTime();
 	return '';
 }
 
 Room.prototype.status = function(){
 	var str = '';
-	str = '编号  昵称';
+	str = '编号  昵称\n';
 	for(var p in this.players){
 		str += this.players[p].id + '    ' + this.players[p].name + '\n';
 	}
-	str += '--------';
+	str += '--------\n';
 	if(this.playerNum == this.players.length){
 		str += '小伙伴都到齐啦，Let\'s go。';
 	}else{
 		str += '还有 '+(this.playerNum - this.players.length)+' 个小伙伴没进来！';
 	}
+	this.update = new Date().getTime();
 	return str;
 }
 
-Room.prototype.expose = function(player){
+Room.prototype.out = function(id){
+	var str = '';
+	if(id<=0 || id>this.playerNum){
+		str = '小伙伴ID 不对！';
+	}else if(this.players[id-1].out == 1){
+		str = '这个小伙伴被揭穿一次还不够吗？';
+	}else{
+		this.players[id-1].out = 1;
+		str = this.result();
+	}
+	
+	this.update = new Date().getTime();
+	return str;
+}
 
+Room.result = function(){
+	var p,s,n = 0;
+	var str = '';
+	for(var i in this.players){
+		if(this.players[i].out == 0){
+			switch(this.players[i].role){
+				case 1:
+					p += 1;
+					break;
+				case 2:
+					s += 1;
+					break;
+				case 3:
+					n += 1;
+					break;
+			}
+		}
+	}
+
+	if(n == 0 && s == 0){
+		str = '卧底、白板都被找出，卧底失败!\n';
+	}else if((n+s) >= p){
+		str = '卧底赢了！';
+	}else{
+		str = '你们又冤枉了一位小伙伴！';
+	}
+
+	this.update = new Date().getTime();
+	return str;
+}
+
+Room.prototype.over = function(){
+	var str = '';
+	for(var p in this.players){
+		str += this.players[p].id + '  ' + this.players[p].name +
+			'  ' + ROLE[this.players[p].role] + '\n';
+	}
+	return str;
 }
 
 module.exports = Room;

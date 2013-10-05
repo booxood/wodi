@@ -100,6 +100,9 @@ exports.post = function(req, res){
                     }else{
                         resStr = '你是房间的创建者吗？让ta来发这个命令吧';
                     }
+                }else if(cmd[0] == 'wodiover'){
+                    resStr = room.over();
+                    delete rooms[room.id];
                 }
                 
                 break;
@@ -119,7 +122,7 @@ exports.post = function(req, res){
                     }else{
                         resStr = '房间ID 不对！';
                     }
-                }else if(cmd[0] == 'wodiexpose'){
+                }else if(cmd[0] == 'wodiout'){
                     var room = null;
                     for(var r in rooms){
                         if(rooms[r].host == msg.FromUserName)
@@ -127,16 +130,7 @@ exports.post = function(req, res){
                     }
                     if(room){
                         if(isNum(cmd[1])){
-                            var player = null;
-                            for(var p in room.players){
-                                if(room.players[p].id == cmd[1])
-                                    player = room.players[p];
-                            }
-                            if(player){
-                                room.expose(player);
-                            }else{
-                                resStr = '小伙伴ID 不存在！';
-                            }
+                            resStr = room.out(cmd[1]);
                         }else{
                             resStr = '小伙伴ID 必须是数字！';
                         }
