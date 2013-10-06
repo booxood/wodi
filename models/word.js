@@ -1,7 +1,4 @@
-var words = [
-['王菲','那英'],
-['元芳','展昭']
-];
+var words = require('../util/words');
 
 var Word = function(){
 
@@ -15,7 +12,7 @@ Word.random = function(){
 	return arr;
 }
 
-// console.log(Words.random());
+// console.log(Word.random());
 
 module.exports = Word;
 

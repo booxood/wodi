@@ -18,17 +18,15 @@ var WODI_BEGIN = '\
 wodi 玩家数 卧底人数 白板人数\n\
 例如:\n\
 wodi 8 2 0';
-var WODI_ROOM = '\
-告诉小伙伴们房间ID，加入房间，发送:\n\
-wodiroom 房间ID 昵称\n\
-例如:\n\
-wodiroom 9999 小白';
-var WODI_KILL = '\
-知道哪个小伙伴是卧底了？\n\
-揭穿ta吧，发送:\n\
-wodiout 小伙伴ID\n\
-例如:\n\
-wodiout 9';
+var WODI_HELP = '
+wodi n n n    : 创建房间\n\
+wodiroom n xx : 加入房间\n\
+wodiout n     : 揭穿玩家\n\
+（ n：数字，xx：昵称）\n\
+wodistatus    : 查看房间状态\n\
+wodiover      : 查看结果\n\
+wodihelp      : 查看帮助\n\
+';
 
 exports.checkToken = function(req, res, next){
 
@@ -62,17 +60,14 @@ exports.get = function(req, res){
 };
 
 exports.post = function(req, res){
-    console.log('-----------------  body xml    --------------------');
-    for(var i in req.body.xml){
-        console.log(i+'------'+req.body.xml[i]);
-    }
-    console.log('-----------------  rooms   --------------------');
-    for(var i in rooms){
-        console.log(i+'------'+rooms[i].host+'-----'+rooms[i].players.length);
-    }
-    console.log('------------------------------------------------------');
-    console.log('------------------------------------------------------');
-    console.log('------------------------------------------------------');
+    // console.log('-----------------  body xml    --------------------');
+    // for(var i in req.body.xml){
+    //     console.log(i+'------'+req.body.xml[i]);
+    // }
+    // console.log('-----------------  rooms   --------------------');
+    // for(var i in rooms){
+    //     console.log(i+'------'+rooms[i].host+'-----'+rooms[i].players.length);
+    // }
 
     var msg = req.body.xml;
     var resStr = '';
@@ -112,6 +107,8 @@ exports.post = function(req, res){
                     }else{
                         resStr = '你是房间的创建者吗？让ta来发这个命令吧';
                     }
+                }else if(cmd[0] in ('wodihelp','wodirule','wodih')){
+                    resStr = WODI_HELP;
                 }
                 
                 break;
@@ -178,10 +175,9 @@ exports.post = function(req, res){
         }
 
     }else{
-        resStr = '收到你发过来的:'+msg.Content;
+        resStr = '收到你发过来的:\n'+msg.Content;
     }
-
-    console.log('-------reponse:---------\n' + resStr);
+    // console.log('-----------------  reponse   --------------------\n' + resStr);
     res.send(wxTextRes(msg.FromUserName, msg.ToUserName, resStr));
 };
 
