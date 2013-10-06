@@ -105,13 +105,13 @@ Room.prototype.result = function(){
 	for(var i in this.players){
 		if(this.players[i].out == 0){
 			switch(this.players[i].role){
-				case 1:
+				case 0:
 					p += 1;
 					break;
-				case 2:
+				case 1:
 					s += 1;
 					break;
-				case 3:
+				case 2:
 					n += 1;
 					break;
 			}
