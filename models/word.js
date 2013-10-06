@@ -3,11 +3,11 @@ var words = [
 ['元芳','展昭']
 ];
 
-var Words = function(){
+var Word = function(){
 
 }
 
-Words.random = function(){
+Word.random = function(){
 	var len = words.length;
 	var index = Math.floor(Math.random()*len);
 	var arr = words[index];
@@ -15,7 +15,7 @@ Words.random = function(){
 	return arr;
 }
 
-console.log(Words.random());
+// console.log(Words.random());
 
-module.exports = Words;
+module.exports = Word;
 

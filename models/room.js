@@ -1,4 +1,4 @@
-var Words = require('../util/words');
+var Word = require('./word');
 
 var ROLE = ['平民','卧底','白板'];
 
@@ -37,7 +37,7 @@ Room.prototype.init = function(){
 
 	this.roles = shuffle(this.roles);
 
-	this.words = Words.random();
+	this.words = Word.random();
 }
 
 Room.prototype.addPlayer = function(player){
