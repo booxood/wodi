@@ -10,7 +10,12 @@ var Words = function(){
 Words.random = function(){
 	var len = words.length;
 	var index = Math.floor(Math.random()*len);
-	return words[index].push('万中无一的白板');
+	var arr = words[index];
+	arr.push('万中无一的白板');
+	return arr;
 }
 
+console.log(Words.random());
+
 module.exports = Words;
+
