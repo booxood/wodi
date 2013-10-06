@@ -107,7 +107,7 @@ exports.post = function(req, res){
                     }else{
                         resStr = '你是房间的创建者吗？让ta来发这个命令吧';
                     }
-                }else if(cmd[0] in ('wodihelp','wodirule','wodih')){
+                }else if(['wodihelp','wodirule','wodih'].indexOf(cmd[0]) >= 0){
                     resStr = WODI_HELP;
                 }
                 
