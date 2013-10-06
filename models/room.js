@@ -100,7 +100,7 @@ Room.prototype.out = function(id){
 }
 
 Room.prototype.result = function(){
-	var p,s,n = 0;
+	var p = 0,s = 0,n = 0;
 	var str = '';
 	for(var i in this.players){
 		console.log('========= :'+this.players[i].out+'-----:'+this.players[i].role);

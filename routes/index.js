@@ -191,7 +191,6 @@ var s = setInterval(function(){
 
 var cleanRoom = function(rooms){
     for(var i in rooms){
-        console.log(rooms[i].update);
         if(new Date().getTime() - rooms[i].update > 30*60*1000)
         {
             console.log('==========cleanRoom time:'+new Date().getTime());
