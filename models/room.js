@@ -103,7 +103,6 @@ Room.prototype.result = function(){
 	var p = 0,s = 0,n = 0;
 	var str = '';
 	for(var i in this.players){
-		console.log('========= :'+this.players[i].out+'-----:'+this.players[i].role);
 		if(this.players[i].out == 0){
 			switch(this.players[i].role){
 				case 0:
@@ -118,14 +117,13 @@ Room.prototype.result = function(){
 			}
 		}
 	}
-	console.log('====p:'+p+'===== n:'+n+'   ==== s:'+s);
 	if(n == 0 && s == 0){
 		str = '卧底、白板都被找出，游戏结束!\n';
 	}else if(n == 0 && s >= p){
 		str = '卧底赢了！';
 	}else if(s == 0 && n >= p){
 		str = '白板赢了！';
-	}if((s+n) >= p){
+	}else if((s+n) >= p){
 		str = '卧底、白板赢了！';
 	}else{
 		str = '这位小伙伴貌似被冤枉了！游戏继续！';
