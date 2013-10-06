@@ -103,6 +103,7 @@ Room.prototype.result = function(){
 	var p,s,n = 0;
 	var str = '';
 	for(var i in this.players){
+		console.log('========= :'+this.players[i].out+'-----:'+this.players[i].role);
 		if(this.players[i].out == 0){
 			switch(this.players[i].role){
 				case 0:
@@ -117,13 +118,13 @@ Room.prototype.result = function(){
 			}
 		}
 	}
-
+	console.log('========= n:'+n+'   ==== s:'+s);
 	if(n == 0 && s == 0){
 		str = '卧底、白板都被找出，卧底失败!\n';
 	}else if((n+s) >= p){
 		str = '卧底赢了！';
 	}else{
-		str = '你们又冤枉了一位小伙伴！';
+		str = '这位小伙伴貌似被冤枉了！游戏继续！';
 	}
 
 	this.update = new Date().getTime();

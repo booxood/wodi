@@ -26,9 +26,9 @@ wodiroom 9999 小白';
 var WODI_KILL = '\
 知道哪个小伙伴是卧底了？\n\
 揭穿ta吧，发送:\n\
-wodiexpose 小伙伴ID\n\
+wodiout 小伙伴ID\n\
 例如:\n\
-wodiexpose 9';
+wodiout 9';
 
 exports.checkToken = function(req, res, next){
 
@@ -87,9 +87,6 @@ exports.post = function(req, res){
 
         switch(cmd.length){
             case 1:
-
-
-
                 if(cmd[0] == 'wodi'){
                     resStr = WODI_BEGIN;
                 }else if(cmd[0] == 'wodistatus'){
