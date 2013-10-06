@@ -18,7 +18,7 @@ var WODI_BEGIN = '\
 wodi 玩家数 卧底人数 白板人数\n\
 例如:\n\
 wodi 8 2 0';
-var WODI_HELP = '
+var WODI_HELP = '\
 wodi n n n    : 创建房间\n\
 wodiroom n xx : 加入房间\n\
 wodiout n     : 揭穿玩家\n\
