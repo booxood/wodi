@@ -60,14 +60,14 @@ exports.get = function(req, res){
 };
 
 exports.post = function(req, res){
-    // console.log('-----------------  body xml    --------------------');
-    // for(var i in req.body.xml){
-    //     console.log(i+'------'+req.body.xml[i]);
-    // }
-    // console.log('-----------------  rooms   --------------------');
-    // for(var i in rooms){
-    //     console.log(i+'------'+rooms[i].host+'-----'+rooms[i].players.length);
-    // }
+    console.log('-----------------  body xml    --------------------');
+    for(var i in req.body.xml){
+        console.log(i+'------'+req.body.xml[i]);
+    }
+    console.log('-----------------  rooms   --------------------');
+    for(var i in rooms){
+        console.log(i+'------'+rooms[i].host+'-----'+rooms[i].players.length);
+    }
 
     var msg = req.body.xml;
     var resStr = '';
@@ -177,7 +177,7 @@ exports.post = function(req, res){
     }else{
         resStr = '收到你发过来的:\n'+msg.Content;
     }
-    // console.log('-----------------  reponse   --------------------\n' + resStr);
+    console.log('-----------------  reponse   --------------------\n' + resStr);
     res.send(wxTextRes(msg.FromUserName, msg.ToUserName, resStr));
 };
 
