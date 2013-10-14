@@ -9,6 +9,7 @@
     "express": "3.2.6",
     "ejs": "*",
     "xml2js": "*",
-    "xmlbuilder": "*"
+    "xmlbuilder": "*",
+    "should": "*"
   }
 }
