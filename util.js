@@ -6,7 +6,7 @@ var accessLogFile = fs.createWriteStream('access.log', {
     flags: 'a'
 });
 
-function mime(req){
+var mime = function(req){
     var type = req.headers['content-type'] || '';
     return type.split(';')[0];
 };
@@ -72,7 +72,7 @@ var wxTextRes = function(to, from, content){
     return xml;
 };
 
-function isNum(str){
+var isNum = function(str){
     var reg = /^\d+$/;
     if(str.match(reg)){
         return true;
@@ -81,7 +81,7 @@ function isNum(str){
     }
 };
 
-function randomNum(len){
+var randomNum = function(len){
     var b,n = 0;
 
     for(var i=0;i<len;i++){
@@ -91,7 +91,7 @@ function randomNum(len){
     return n;
 };
 
-function trim(str){
+var trim = function(str){
     return (str||'').replace(/^\s+|\s+$/g,'');
 };
 

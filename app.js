@@ -7,9 +7,9 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , routes = require('./routes')
-  , log = require('./routes/log')
   , config = require('./config')
-  , util = require('./util');
+  , util = require('./util')
+  , fs = require('fs');
 
 var app = express();
 
@@ -19,7 +19,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger({
-    stream: util.accessLogFile
+    stream: fs.createWriteStream('access.log', {flags: 'a'})
 }));
 app.use(express.logger('dev'));
 app.use(util.parseXmlBody);
@@ -35,7 +35,6 @@ if ('development' == app.get('env')) {
 app.all('/', routes.checkToken);
 app.get('/', routes.get);
 app.post('/', routes.post);
-app.get('/log', log.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
