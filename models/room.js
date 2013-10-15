@@ -1,6 +1,9 @@
-var Word = require('./word');
+var util = require('util');
+var event = require('events').EventEmitter;
 
+var Word = require('./word');
 var ROLE = ['平民','卧底','白板'];
+var rooms = {};
 
 var Room = function(id, host){
 	this.id = id;
@@ -14,7 +17,21 @@ var Room = function(id, host){
 	this.roles = [];
 	this.words = ['平民的密语','卧底的密语','万中无一的白板'];
 	this.update = new Date().getTime();
+	this.timeout = 30*60*1000;
 }
+
+//继承events.EventEmitter类 实现事件机制
+util.inherits(Room, event);
+
+Room.prototype.clean = function(){
+    for(var i in rooms){
+	    if(new Date().getTime() - rooms[i].update > rooms[i].timeout)
+	    {
+	        delete rooms[i];
+	    }
+	}
+}
+
 
 //+ Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/array/shuffle [v1.0]
