@@ -24,13 +24,8 @@ var Room = function(id, host){
 util.inherits(Room, event);
 
 Room.prototype.clean = function(){
-    for(var i in rooms){
-	    if(new Date().getTime() - rooms[i].update > rooms[i].timeout)
-	    {
-	        delete rooms[i];
-	    }
-	}
-}
+	delete rooms[this.id];
+};
 
 
 //+ Jonas Raoni Soares Silva
@@ -55,6 +50,8 @@ Room.prototype.init = function(){
 	this.roles = shuffle(this.roles);
 
 	this.words = Word.random();
+
+	rooms[this.id] = this;
 }
 
 Room.prototype.addPlayer = function(player){
