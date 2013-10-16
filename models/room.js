@@ -5,6 +5,13 @@ var Word = require('./word');
 var ROLE = ['平民','卧底','白板'];
 var rooms = {};
 
+//+ Jonas Raoni Soares Silva
+//@ http://jsfromhell.com/array/shuffle [v1.0]
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
+
 var Room = function(id, host){
 	this.id = id;
 	this.host = host;
@@ -18,21 +25,27 @@ var Room = function(id, host){
 	this.words = ['平民的密语','卧底的密语','万中无一的白板'];
 	this.update = new Date().getTime();
 	this.timeout = 30*60*1000;
-}
+};
 
 //继承events.EventEmitter类 实现事件机制
 util.inherits(Room, event);
 
-Room.prototype.clean = function(){
-	delete rooms[this.id];
+Room.getRoomByHost = function(host){
+	for(var r in rooms){
+		if(rooms[r].host == host)
+			return rooms[r];
+	}
 };
 
+Room.getRoomById = function(id){
+	for(var r in rooms){
+		if(rooms[r].id == id)
+			return rooms[r];
+	}
+};
 
-//+ Jonas Raoni Soares Silva
-//@ http://jsfromhell.com/array/shuffle [v1.0]
-function shuffle(o){ //v1.0
-    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-    return o;
+Room.prototype.clean = function(){
+	delete rooms[this.id];
 };
 
 Room.prototype.init = function(){

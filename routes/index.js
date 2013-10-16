@@ -10,7 +10,6 @@ var isNum = util.isNum;
 var randomNum = util.randomNum;
 var trim = util.trim;
 
-var rooms = {};
 
 var WODI_BEGIN = '\
 开始 谁是卧底？\n\
@@ -64,10 +63,6 @@ exports.post = function(req, res){
     for(var i in req.body.xml){
         console.log(i+'------'+req.body.xml[i]);
     }
-    console.log('-----------------  rooms   --------------------');
-    for(var i in rooms){
-        console.log(i+'------'+rooms[i].host+'-----'+rooms[i].players.length);
-    }
 
     var msg = req.body.xml;
     var resStr = '';
@@ -86,10 +81,7 @@ exports.post = function(req, res){
                     resStr = WODI_BEGIN;
                 }else if(cmd[0] == 'wodistatus'){
                     var room = null;
-                    for(var r in rooms){
-                        if(rooms[r].host == msg.FromUserName)
-                            room = rooms[r];
-                    }
+                    room = Room.getRoomByHost(msg.FromUserName);
                     if(room){
                         resStr = room.status();
                     }else{
@@ -97,13 +89,10 @@ exports.post = function(req, res){
                     }
                 }else if(cmd[0] == 'wodiover'){
                     var room = null;
-                    for(var r in rooms){
-                        if(rooms[r].host == msg.FromUserName)
-                            room = rooms[r];
-                    }
+                    room = Room.getRoomByHost(msg.FromUserName);
                     if(room){
                         resStr = room.over();
-                        delete rooms[room.id];
+                        room.clean();
                     }else{
                         resStr = '你是房间的创建者吗？让ta来发这个命令吧';
                     }
@@ -115,10 +104,7 @@ exports.post = function(req, res){
             case 2:
                 if(cmd[0] == 'wodiout'){
                     var room = null;
-                    for(var r in rooms){
-                        if(rooms[r].host == msg.FromUserName)
-                            room = rooms[r];
-                    }
+                    room = Room.getRoomByHost(msg.FromUserName);
                     if(room){
                         if(isNum(cmd[1])){
                             resStr = room.out(cmd[1]);
@@ -135,13 +121,16 @@ exports.post = function(req, res){
                 break;
             case 3:
                 if(cmd[0] == 'wodiroom'){
-                    if(isNum(cmd[1]) && rooms[cmd[1]]){
-                        var room = rooms[cmd[1]];
+                    var room = null;
+                    room = Room.getRoomById(cmd[1])
+                    if(room){
                         var player = new Player(msg.FromUserName, cmd[2]);
                         resStr = room.addPlayer(player);
                     }else{
                         resStr = '房间ID 不对！';
                     }
+                }else{
+                    resStr = '你想干嘛？玩 谁是卧底 吗？开始吧。\n'+WODI_BEGIN;
                 }
                 break;
             case 4:
@@ -164,7 +153,6 @@ exports.post = function(req, res){
 
                     var player = new Player(msg.FromUserName, '主持人');
                     resStr += room.addPlayer(player);
-                    rooms[id] = room;
                     
                 }else{
                     resStr = '玩家数 卧底人数 白板人数 必须是数字！';
@@ -182,16 +170,4 @@ exports.post = function(req, res){
 };
 
 var s = setInterval(function(){
-    cleanRoom(rooms);
 }, 100000);
-
-var cleanRoom = function(rooms){
-    for(var i in rooms){
-        if(new Date().getTime() - rooms[i].update > 30*60*1000)
-        {
-            console.log('==========cleanRoom time:'+new Date().getTime());
-            console.log('==========cleanRoom :'+i);
-            delete rooms[i];
-        }
-    }
-}
