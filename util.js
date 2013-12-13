@@ -2,9 +2,9 @@ var fs = require('fs');
 var xml2js = require('xml2js');
 var xmlbuilder = require('xmlbuilder');
 
-var accessLogFile = fs.createWriteStream('access.log', {
-    flags: 'a'
-});
+// var accessLogFile = fs.createWriteStream('access.log', {
+//     flags: 'a'
+// });
 
 var mime = function(req){
     var type = req.headers['content-type'] || '';
@@ -95,7 +95,7 @@ var trim = function(str){
     return (str||'').replace(/^\s+|\s+$/g,'');
 };
 
-exports.accessLogFile = accessLogFile;
+// exports.accessLogFile = accessLogFile;
 exports.parseXmlBody = parseXmlBody;
 exports.writeLog = writeLog;
 exports.wxTextRes = wxTextRes;
